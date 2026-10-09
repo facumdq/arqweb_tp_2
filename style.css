@@ -1,0 +1,159 @@
+/* Some default styling for cookbook examples */
+/*
+rgb(53,43,34)
+rgb(75,70,74)
+rgb(95,97,110)
+rgb(137,151,188)
+rgb(160,178,226)
+*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    font: 1em / 1.4 Helvetica Neue, Helvetica, Arial, sans-serif;
+    padding: 1.5rem 1.25rem;
+    margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+/* styles for the editor */
+
+.playable {
+    font-family: monospace;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #F4F7F8;
+    border: none;
+    border-left: 6px solid #558ABB;
+    color: #4D4E53;
+    width: 90%;
+    max-width: 700px;
+    padding: 10px 10px 0px;
+    font-size: 90%;
+  }
+
+  .playable-css {
+    height: 80px;
+  }
+
+  .playable-js {
+    height: 160px;
+  }
+
+  .playable-buttons {
+    text-align: right;
+    width: 90%;
+    max-width: 700px;
+    padding: 5px 10px 5px 26px;
+    font-size: 100%;
+  }
+
+  .preview {
+    width: 90%;
+    max-width: 700px;
+    border: 1px solid #4D4E53;
+    border-radius: 2px;
+    padding: 10px 14px 10px 10px;
+    margin: 0 auto 10px;
+  }
+
+  .preview p {
+    margin: 0 0 0.65em;
+    padding: 0.7em 0.85em;
+    color: #4D4E53;
+    background-color: #F4F7F8;
+    border-left: 6px solid #558ABB;
+    border-radius: 2px;
+  }
+
+  .preview input {
+    display: block;
+    margin: 5px;
+  }
+
+  .preview h2 {
+    margin: 1em 0 0.4em;
+    color: #4D4E53;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 0.5em;
+    font-size: 0.95em;
+  }
+
+  th,
+  td {
+    border: 1px solid #4D4E53;
+    padding: 6px 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #558ABB;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #F4F7F8;
+  }
+
+  .preview p,
+  .preview h2,
+  .preview th,
+  .preview td {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease,
+      color 0.6s ease,
+      background-color 0.6s ease,
+      border-color 0.6s ease;
+  }
+
+  body.show .preview p,
+  body.show .preview h2,
+  body.show .preview th,
+  body.show .preview td {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  body.show .preview p {
+    transition-delay: 0.05s;
+  }
+
+  body.show .preview p + p {
+    transition-delay: 0.18s;
+  }
+
+  body.show .preview h2 {
+    transition-delay: 0.32s;
+  }
+
+  body.show .preview th {
+    transition-delay: 0.46s;
+  }
+
+  body.show .preview td {
+    transition-delay: 0.62s;
+  }

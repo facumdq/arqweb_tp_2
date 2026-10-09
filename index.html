@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <title>JSON: Task 1</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <section class="preview">
+
+
+
+    </section>
+
+  </body>
+  <script>
+    const section = document.querySelector('section');
+
+    let para1 = document.createElement('p');
+    let para2 = document.createElement('p');
+    let motherInfo = 'The mother cats are called ';
+    let kittenInfo;
+    const requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/tasks/json/sample.json';
+
+    fetch(requestURL)
+    .then(response => response.text())
+    .then(text => displayCatInfo(text))
+
+    function displayCatInfo(catString) {
+      let total = 0;
+      let male = 0;
+      let female = 0;
+
+      // catString llega como texto: hay que convertirlo a un arreglo de objetos.
+      const cats = JSON.parse(catString);
+
+      for (let i = 0; i < cats.length; i++) {
+        // El último nombre lleva "and" y un punto; el resto, una coma.
+        // Comparar con cats.length - 1 hace que funcione con cualquier cantidad de gatas.
+        if (i === cats.length - 1) {
+          motherInfo += "and " + cats[i].name + ".";
+        } else {
+          motherInfo += cats[i].name + ", ";
+        }
+
+        for (let j = 0; j < cats[i].kittens.length; j++) {
+          total++;
+          if (cats[i].kittens[j].gender === "m") {
+            male++;
+          } else {
+            female++;
+          }
+        }
+      }
+
+      kittenInfo =
+        "There are " + total + " kittens in total, " +
+        male + " males and " + female + " females.";
+
+      const mothersTable = document.createElement("table");
+      const kittensTable = document.createElement("table");
+      const mothersBody = document.createElement("tbody");
+      const kittensBody = document.createElement("tbody");
+
+      addTableHeader(mothersTable, ["Nombre", "Raza", "Color", "Gatitos"]);
+      addTableHeader(kittensTable, ["Madre", "Nombre", "Sexo"]);
+
+      for (let i = 0; i < cats.length; i++) {
+        addRow(mothersBody, [
+          cats[i].name,
+          cats[i].breed,
+          cats[i].color,
+          cats[i].kittens.length
+        ]);
+
+        for (let j = 0; j < cats[i].kittens.length; j++) {
+          const kitten = cats[i].kittens[j];
+          const sex = kitten.gender === "m" ? "Macho" : "Hembra";
+          addRow(kittensBody, [cats[i].name, kitten.name, sex]);
+        }
+      }
+
+      mothersTable.appendChild(mothersBody);
+      kittensTable.appendChild(kittensBody);
+
+      // Don't edit the code below here!
+
+      para1.textContent = motherInfo;
+      para2.textContent = kittenInfo;
+      section.appendChild(para1);
+      section.appendChild(para2);
+      section.appendChild(createHeading("Madres"));
+      section.appendChild(mothersTable);
+      section.appendChild(createHeading("Gatitos"));
+      section.appendChild(kittensTable);
+
+      contentReady = true;
+      revealPage();
+    }
+
+    function createHeading(text) {
+      const heading = document.createElement("h2");
+      heading.textContent = text;
+      return heading;
+    }
+
+    function addTableHeader(table, labels) {
+      const thead = document.createElement("thead");
+      const row = document.createElement("tr");
+
+      for (let i = 0; i < labels.length; i++) {
+        const cell = document.createElement("th");
+        cell.textContent = labels[i];
+        row.appendChild(cell);
+      }
+
+      thead.appendChild(row);
+      table.appendChild(thead);
+    }
+
+    function addRow(body, values) {
+      const row = document.createElement("tr");
+
+      for (let i = 0; i < values.length; i++) {
+        const cell = document.createElement("td");
+        cell.textContent = values[i];
+        row.appendChild(cell);
+      }
+
+      body.appendChild(row);
+    }
+
+    let contentReady = false;
+
+    window.onload = function () {
+      document.body.dataset.loaded = "true";
+      revealPage();
+    };
+
+    function revealPage() {
+      if (document.body.dataset.loaded !== "true" || !contentReady) {
+        return;
+      }
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          document.body.classList.add("show");
+        });
+      });
+    }
+  </script>
+
+</html>
